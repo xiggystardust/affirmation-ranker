@@ -19,7 +19,7 @@ import {
   CircularProgress,
   Grid
 } from '@mui/material'
-import { Refresh as RefreshIcon } from '@mui/icons-material'
+import { Refresh as RefreshIcon, Download as DownloadIcon } from '@mui/icons-material'
 import { getSurveys } from '../services/surveyService'
 import { getResultsFromFirestore, getSurveyStats } from '../services/adminService'
 
@@ -65,6 +65,32 @@ function AdminPage() {
     if (!duration) return 'N/A'
     const seconds = Math.round(duration / 1000)
     return `${seconds}s`
+  }
+
+  const exportCSV = (results) => {
+    if (!results || results.length === 0) return
+    
+    const headers = ['timestamp', 'surveyId', 'affirmationIds', 'duration', 'sessionId']
+    const rows = results.map(result => [
+      result.timestamp || '',
+      result.surveyId || 'Default',
+      Array.isArray(result.affirmationIds) ? result.affirmationIds.join(';') : '',
+      result.duration || '',
+      result.sessionId || ''
+    ])
+    
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(','))
+    ].join('\n')
+    
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'affirmation-results.csv'
+    link.click()
+    URL.revokeObjectURL(url)
   }
 
   return (
@@ -127,6 +153,14 @@ function AdminPage() {
               disabled={loading}
             >
               Refresh
+            </Button>
+            <Button
+              variant="outlined"
+              startIcon={<DownloadIcon />}
+              onClick={() => exportCSV(results)}
+              disabled={loading || results.length === 0}
+            >
+              Export CSV
             </Button>
           </Box>
         </CardContent>

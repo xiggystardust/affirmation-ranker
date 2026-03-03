@@ -94,7 +94,7 @@ function LandingPage() {
           </Typography>
           <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
             <Link
-              href="https://github.com/username/affirmation-ranker"
+              href="https://github.com/mpi-astronomy/affirmation-ranker"
               target="_blank"
               rel="noopener"
               underline="none"
