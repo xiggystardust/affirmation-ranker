@@ -1,152 +1,157 @@
-[
-  {
-    "id": 1,
-    "text": "I am worthy of love and respect.",
-    "category": "self-worth"
-  },
-  {
-    "id": 2,
-    "text": "Every day I am growing stronger and wiser.",
-    "category": "growth"
-  },
-  {
-    "id": 3,
-    "text": "I can handle whatever challenges come my way.",
-    "category": "resilience"
-  },
-  {
-    "id": 4,
-    "text": "I attract positive and healthy relationships.",
-    "category": "relationships"
-  },
-  {
-    "id": 5,
-    "text": "My body is healthy and full of energy.",
-    "category": "health"
-  },
-  {
-    "id": 6,
-    "text": "I am capable of achieving my goals.",
-    "category": "success"
-  },
-  {
-    "id": 7,
-    "text": "I deserve all the good things life has to offer.",
-    "category": "self-worth"
-  },
-  {
-    "id": 8,
-    "text": "**I embrace change** as a chance to learn and evolve.",
-    "category": "growth"
-  },
-  {
-    "id": 9,
-    "text": "I bounce back from setbacks stronger than before.",
-    "category": "resilience"
-  },
-  {
-    "id": 10,
-    "text": "I communicate openly and honestly with loved ones.",
-    "category": "relationships"
-  },
-  {
-    "id": 11,
-    "text": "I nourish my body with healthy choices.",
-    "category": "health"
-  },
-  {
-    "id": 12,
-    "text": "Success flows to me effortlessly.",
-    "category": "success"
-  },
-  {
-    "id": 13,
-    "text": "I am enough exactly as I am.",
-    "category": "self-worth"
-  },
-  {
-    "id": 14,
-    "text": "I am constantly improving in every area of my life.",
-    "category": "growth"
-  },
-  {
-    "id": 15,
-    "text": "Obstacles are just opportunities in disguise.",
-    "category": "resilience"
-  },
-  {
-    "id": 16,
-    "text": "I am a good listener and a supportive friend.",
-    "category": "relationships"
-  },
-  {
-    "id": 17,
-    "text": "I wake up feeling refreshed and energized.",
-    "category": "health"
-  },
-  {
-    "id": 18,
-    "text": "I am *destined for great things*.",
-    "category": "success"
-  },
-  {
-    "id": 19,
-    "text": "I accept myself completely.",
-    "category": "self-worth"
-  },
-  {
-    "id": 20,
-    "text": "My potential is limitless.",
-    "category": "growth"
-  },
-  {
-    "id": 21,
-    "text": "I never give up, no matter what.",
-    "category": "resilience"
-  },
-  {
-    "id": 22,
-    "text": "People appreciate my company.",
-    "category": "relationships"
-  },
-  {
-    "id": 23,
-    "text": "I am in tune with my body's needs.",
-    "category": "health"
-  },
-  {
-    "id": 24,
-    "text": "I am a magnet for opportunities.",
-    "category": "success"
-  },
-  {
-    "id": 25,
-    "text": "I try my best and that's enough.",
-    "category": "self-worth"
-  },
-  {
-    "id": 26,
-    "text": "I am open to learning new things.",
-    "category": "growth"
-  },
-  {
-    "id": 27,
-    "text": "I handle stress with grace and calm.",
-    "category": "resilience"
-  },
-  {
-    "id": 28,
-    "text": "I value my relationships with others.",
-    "category": "relationships"
-  },
-  {
-    "id": 29,
-    "text": "I take care of my physical wellbeing.",
-    "category": "health"
-  },
-  {
-    "id": 30,
-    "text": "I work towards my dreams every single day.",
-    "category": "success"
-  }
-]
+{
+  "surveys": [
+    { "id": "pilot-2026", "name": "Pilot Survey 2026", "description": "Initial affirmation set" }
+  ],
+  "affirmations": [
+    {
+      "id": 1,
+      "text": "I am worthy of love and respect.",
+      "category": "self-worth"
+    },
+    {
+      "id": 2,
+      "text": "Every day I am growing stronger and wiser.",
+      "category": "growth"
+    },
+    {
+      "id": 3,
+      "text": "I can handle whatever challenges come my way.",
+      "category": "resilience"
+    },
+    {
+      "id": 4,
+      "text": "I attract positive and healthy relationships.",
+      "category": "relationships"
+    },
+    {
+      "id": 5,
+      "text": "My body is healthy and full of energy.",
+      "category": "health"
+    },
+    {
+      "id": 6,
+      "text": "I am capable of achieving my goals.",
+      "category": "success"
+    },
+    {
+      "id": 7,
+      "text": "I deserve all the good things life has to offer.",
+      "category": "self-worth"
+    },
+    {
+      "id": 8,
+      "text": "**I embrace change** as a chance to learn and evolve.",
+      "category": "growth"
+    },
+    {
+      "id": 9,
+      "text": "I bounce back from setbacks stronger than before.",
+      "category": "resilience"
+    },
+    {
+      "id": 10,
+      "text": "I communicate openly and honestly with loved ones.",
+      "category": "relationships"
+    },
+    {
+      "id": 11,
+      "text": "I nourish my body with healthy choices.",
+      "category": "health"
+    },
+    {
+      "id": 12,
+      "text": "Success flows to me effortlessly.",
+      "category": "success"
+    },
+    {
+      "id": 13,
+      "text": "I am enough exactly as I am.",
+      "category": "self-worth"
+    },
+    {
+      "id": 14,
+      "text": "I am constantly improving in every area of my life.",
+      "category": "growth"
+    },
+    {
+      "id": 15,
+      "text": "Obstacles are just opportunities in disguise.",
+      "category": "resilience"
+    },
+    {
+      "id": 16,
+      "text": "I am a good listener and a supportive friend.",
+      "category": "relationships"
+    },
+    {
+      "id": 17,
+      "text": "I wake up feeling refreshed and energized.",
+      "category": "health"
+    },
+    {
+      "id": 18,
+      "text": "I am *destined for great things*.",
+      "category": "success"
+    },
+    {
+      "id": 19,
+      "text": "I accept myself completely.",
+      "category": "self-worth"
+    },
+    {
+      "id": 20,
+      "text": "My potential is limitless.",
+      "category": "growth"
+    },
+    {
+      "id": 21,
+      "text": "I never give up, no matter what.",
+      "category": "resilience"
+    },
+    {
+      "id": 22,
+      "text": "People appreciate my company.",
+      "category": "relationships"
+    },
+    {
+      "id": 23,
+      "text": "I am in tune with my body's needs.",
+      "category": "health"
+    },
+    {
+      "id": 24,
+      "text": "I am a magnet for opportunities.",
+      "category": "success"
+    },
+    {
+      "id": 25,
+      "text": "I try my best and that's enough.",
+      "category": "self-worth"
+    },
+    {
+      "id": 26,
+      "text": "I am open to learning new things.",
+      "category": "growth"
+    },
+    {
+      "id": 27,
+      "text": "I handle stress with grace and calm.",
+      "category": "resilience"
+    },
+    {
+      "id": 28,
+      "text": "I value my relationships with others.",
+      "category": "relationships"
+    },
+    {
+      "id": 29,
+      "text": "I take care of my physical wellbeing.",
+      "category": "health"
+    },
+    {
+      "id": 30,
+      "text": "I work towards my dreams every single day.",
+      "category": "success"
+    }
+  ]
+}

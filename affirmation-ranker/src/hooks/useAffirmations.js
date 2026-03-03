@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import affirmationsData from '../data/affirmations.json'
+import { getAllAffirmations, getAffirmationsForSurvey } from '../services/surveyService'
 
 function shuffleArray(array) {
   const shuffled = [...array]
@@ -15,18 +15,23 @@ function getRandomUnique(arr, count) {
   return shuffled.slice(0, count)
 }
 
-export function useAffirmations() {
+export function useAffirmations(surveyId = null) {
+  const affirmationsData = surveyId 
+    ? getAffirmationsForSurvey(surveyId)
+    : getAllAffirmations()
+  
   const [affirmations, setAffirmations] = useState(() => 
     getRandomUnique(affirmationsData, 3)
   )
 
   const getThreeRandom = useCallback(() => {
-    return getRandomUnique(affirmationsData, 3)
-  }, [])
+    const data = surveyId ? getAffirmationsForSurvey(surveyId) : getAllAffirmations()
+    return getRandomUnique(data, 3)
+  }, [surveyId])
 
   const shuffle = useCallback(() => {
     setAffirmations(getRandomUnique(affirmationsData, 3))
-  }, [])
+  }, [affirmationsData])
 
   const randomizeOrder = useCallback((currentAffirmations) => {
     return shuffleArray(currentAffirmations)

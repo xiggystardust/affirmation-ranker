@@ -4,6 +4,7 @@ import { CssBaseline, AppBar, Toolbar, Typography, Container, Box } from '@mui/m
 import LandingPage from './pages/LandingPage'
 import RankingPage from './pages/RankingPage'
 import SuccessPage from './pages/SuccessPage'
+import AdminPage from './pages/AdminPage'
 
 const theme = createTheme({
   palette: {
@@ -89,6 +90,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/rank" element={<RankingPage />} />
             <Route path="/success" element={<SuccessPage />} />
+            <Route path="/admin" element={<AdminPage />} />
           </Routes>
         </Container>
       </Box>

@@ -1,3 +1,6 @@
+import { addDoc, collection } from 'firebase/firestore'
+import { db } from './firebase'
+
 const STORAGE_KEY = 'affirmation_ranking_results'
 const APP_VERSION = '1.0'
 
@@ -9,20 +12,18 @@ function generateUUID() {
   })
 }
 
-export function submitRankingResults(affirmationIds, duration) {
+export async function submitRankingResults(affirmationIds, duration, surveyId = null) {
   const result = {
     sessionId: generateUUID(),
     timestamp: new Date().toISOString(),
     affirmationIds,
     duration,
-    version: APP_VERSION
+    version: APP_VERSION,
+    surveyId
   }
 
-  const existingResults = getAllResults()
-  existingResults.push(result)
-  
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(existingResults))
+    await addDoc(collection(db, 'results'), result)
     return result
   } catch (error) {
     console.error('Failed to save results:', error)

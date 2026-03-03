@@ -143,6 +143,10 @@ function LandingPage() {
           </Typography>
         </CardContent>
       </Card>
+
+      <Link href="/admin" underline="hover" color="text.secondary" sx={{ fontSize: '0.875rem' }}>
+        View Results (Admin)
+      </Link>
     </Stack>
   );
 }

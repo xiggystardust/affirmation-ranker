@@ -6,9 +6,11 @@ import RankingList from '../components/RankingList'
 import { useAffirmations } from '../hooks/useAffirmations'
 import { submitRankingResults } from '../services/resultsService'
 
+const SURVEY_ID = 'pilot-2026'
+
 function RankingPage() {
   const navigate = useNavigate()
-  const { affirmations, randomizeOrder } = useAffirmations()
+  const { affirmations, randomizeOrder } = useAffirmations(SURVEY_ID)
   const [currentOrder, setCurrentOrder] = useState(() => randomizeOrder(affirmations))
   const startTimeRef = useRef(null)
 
@@ -30,7 +32,7 @@ function RankingPage() {
     }))
 
     const affirmationIds = currentOrder.map(a => a.id)
-    submitRankingResults(affirmationIds, duration)
+    submitRankingResults(affirmationIds, duration, SURVEY_ID)
 
     navigate('/success', { state: { ranking: rankingData, duration } })
   }
