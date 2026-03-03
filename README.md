@@ -79,4 +79,4 @@ This application was primarily vibe-coded using [Kilocode](https://kilo.ai/cli) 
 
 ## License
 
-MIT
+Copyright (c) 2026 Max Planck Institute for Astronomy. See [LICENSE](LICENSE) for details.
