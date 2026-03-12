@@ -22,7 +22,8 @@ function RankingList({ affirmations, cardScores, onScoreChange, onAllRated, surf
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const LEFT_PANEL_VW = isMobile ? 42 : 20
-  const CARD_LEFT_OFFSET = isMobile ? 52 : 80
+  const SCALE_WIDTH = isMobile ? 80 : 120
+  const CARD_LEFT_OFFSET = SCALE_WIDTH + 2  // always starts just past the scale box edge
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [dragPos, setDragPos] = useState(null)
@@ -163,7 +164,7 @@ function RankingList({ affirmations, cardScores, onScoreChange, onAllRated, surf
           position: 'fixed',
           left: `${LEFT_PANEL_VW}vw`,
           top: `${surfacePct}%`, bottom: 0,
-          width: 120,
+          width: SCALE_WIDTH,
           zIndex: 10,
           overflow: 'visible',
           cursor: isDone ? 'default' : 'pointer',
