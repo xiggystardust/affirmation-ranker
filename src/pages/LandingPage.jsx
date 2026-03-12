@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -12,52 +13,81 @@ import {
 import GitHubIcon from "@mui/icons-material/GitHub";
 
 function LandingPage() {
+    // Set body background to transparent so ocean background shows through
+    useEffect(() => {
+      document.body.style.background = 'transparent';
+      return () => {
+        document.body.style.background = '';
+      };
+    }, []);
   const navigate = useNavigate();
 
   return (
-    <Stack spacing={{ xs: 3, sm: 4 }} alignItems="center">
+    <>
+      {/* Ocean background — fixed, full viewport (no fish) */}
+      <Box sx={{
+        position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+        zIndex: -1, overflow: 'hidden',
+        background: `linear-gradient(to bottom,
+          #dde8f2 0%,
+          #c2d6e8 12%,
+          #5a8898 14%,
+          #3d6878 20%,
+          #274858 45%,
+          #162530 100%)`,
+      }}>
+        {/* Surface foam line */}
+        <Box sx={{
+          position: 'absolute', left: 0, right: 0,
+          top: '14%', height: 3,
+          background: 'rgba(255,255,255,0.55)',
+        }} />
+        {/* Clouds */}
+        {/* You can add clouds here if desired, using cloud asset from RankingPageAbs */}
+      </Box>
+      <Stack spacing={{ xs: 3, sm: 4 }} alignItems="center" sx={{ background: 'transparent' }}>
       <Typography
         variant="h1"
         component="h1"
         align="center"
         color="primary.dark"
       >
-        Affirmation Ranker
+        The Ethical Gradient
       </Typography>
 
-      <Card sx={{ width: "100%", maxWidth: 600 }}>
-        <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
-          <Typography variant="h2" component="h2" gutterBottom>
-            How It Works
-          </Typography>
-          <Typography variant="body1" paragraph color="text.secondary">
-            Welcome to the Affirmation Ranker! This tool helps you organize and
-            prioritize personal affirmations by ranking them according to what
-            resonates most with you.
-          </Typography>
-          <Typography variant="body1" paragraph color="text.secondary">
-            You'll be presented with a list of affirmations. Simply drag and
-            drop them to arrange them in order of personal significance - your
-            most meaningful affirmation at the top.
-          </Typography>
-        </CardContent>
-      </Card>
+        <Card sx={{ width: "100%", maxWidth: 600, background: 'transparent', boxShadow: 0 }}>
+          <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+            <Typography variant="h2" component="h2" gutterBottom sx={{ color: 'white' }}>
+              How It Works
+            </Typography>
+            <Typography variant="body1" paragraph sx={{ color: 'white' }}>
+              Welcome to the LLM Ethical Gradient Game! In this activity you will evaluate
+              scenarios involving the use of large language models in academic research.
+              Your task is to judge how ethically concerning each situation is.
+            </Typography>
+            <Typography variant="body1" paragraph sx={{ color: 'white' }}>
+              You will receive a small set of scenario cards. Drag and drop them to place
+              each one on the scale from "All Good" to "Sirens Blaring". After you submit
+              your ranking, your answers will be compared to a reference score to see how
+              closely your ethical radar aligns.
+            </Typography>
+          </CardContent>
+        </Card>
 
-      <Card sx={{ width: "100%", maxWidth: 600 }}>
-        <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
-          <Typography variant="h2" component="h2" gutterBottom>
-            Instructions
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            1. Click "Start Ranking" to begin
-            <br />
-            2. Drag affirmations to reorder them
-            <br />
-            3. Your top choice should be at position 1<br />
-            4. Submit when finished
-          </Typography>
-        </CardContent>
-      </Card>
+        <Card sx={{ width: "100%", maxWidth: 600, background: 'transparent', boxShadow: 0 }}>
+          <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+            <Typography variant="h2" component="h2" gutterBottom sx={{ color: 'white' }}>
+              Instructions
+            </Typography>
+            <Typography variant="body1" sx={{ color: 'white' }}>
+              1. Click "Start Ranking" to begin
+              <br />
+              2. Drag scenarios into the ocean and drop them at your chosen level, or click anywhere on the scale to place them. Reposition placed cards anytime. Scenarios you think should be <strong>banned</strong> go below the red line.
+              <br />
+              3. Submit when finished
+            </Typography>
+          </CardContent>
+        </Card>
 
       <Button
         variant="contained"
@@ -76,7 +106,7 @@ function LandingPage() {
 
       <Divider sx={{ width: "100%", maxWidth: 600 }} />
 
-      <Card sx={{ width: "100%", maxWidth: 600 }}>
+      <Card sx={{ width: "100%", maxWidth: 600, background: 'transparent', boxShadow: 0 }}>
         <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
           <Typography variant="h2" component="h2" gutterBottom>
             About This App
@@ -148,6 +178,7 @@ function LandingPage() {
         View Results (Admin)
       </Link>
     </Stack>
+    </>
   );
 }
 
