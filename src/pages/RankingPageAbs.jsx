@@ -17,6 +17,7 @@ import fish5 from '../assets/fish-svgrepo-com (5).svg'
 import fishSchool from '../assets/fishes-fish-svgrepo-com.svg'
 import octopus from '../assets/octopus-svgrepo-com.svg'
 import shark from '../assets/shark-svgrepo-com.svg'
+import anglerFish from '../assets/angler-fish-svgrepo-com (1).svg'
 import squid from '../assets/squid-svgrepo-com.svg'
 
 const SURVEY_ID = 'march-2026'
@@ -145,6 +146,15 @@ function RankingPage() {
           right: '1%', bottom: 0,
           width: 220, opacity: 0.9,
           transform: 'translateY(40%)',
+          pointerEvents: 'none',
+        }} />
+
+        {/* Fixed angler fish — bottom, 30% from left */}
+        <img src={anglerFish} alt="" style={{
+          position: 'absolute',
+          left: '30%', bottom: 0,
+          width: 220, opacity: 0.9,
+          transform: 'translateY(25%)',
           pointerEvents: 'none',
         }} />
       </Box>
