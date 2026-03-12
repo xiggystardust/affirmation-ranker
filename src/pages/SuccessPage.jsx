@@ -45,58 +45,75 @@ function SuccessPage() {
   const normalised = maxPoints > 0 ? Math.round((totalPoints / maxPoints) * 100) : 0
 
   return (
-    <Box sx={{ display: 'flex', gap: 4, alignItems: 'flex-start' }}>
-      {/* Left: ranked cards */}
-      <Box sx={{ flex: 1 }}>
-        <Typography variant="h6" gutterBottom color="primary.dark">
-          Your Ranking
-        </Typography>
-        <Stack spacing={1.5}>
-          {scoredRanking.map((item) => (
-            <Card key={item.id} variant="outlined" sx={{ bgcolor: 'grey.50' }}>
-              <CardContent sx={{ py: 1.5, '&:last-child': { pb: 1.5 } }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                  <Box sx={{ fontSize: '1.4rem', lineHeight: 1, flexShrink: 0 }}>
-                    {getZoneEmoji(item.score)}
+    <>
+      <Box sx={{ display: 'flex', gap: 4, alignItems: 'flex-start' }}>
+        {/* Left: ranked cards */}
+        <Box sx={{ flex: 1 }}>
+          <Typography variant="h6" gutterBottom color="primary.dark">
+            Your Ranking
+          </Typography>
+          <Stack spacing={1.5}>
+            {scoredRanking.map((item) => (
+              <Card key={item.id} variant="outlined" sx={{ bgcolor: 'grey.50' }}>
+                <CardContent sx={{ py: 1.5, '&:last-child': { pb: 1.5 } }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                    <Box sx={{ fontSize: '1.4rem', lineHeight: 1, flexShrink: 0 }}>
+                      {getZoneEmoji(item.score)}
+                    </Box>
+                    <Typography variant="body2" sx={{ flex: 1 }}>
+                      {item.text}
+                    </Typography>
+                    <Box sx={{
+                      flexShrink: 0, minWidth: 36, textAlign: 'right',
+                      fontWeight: 700, fontSize: '0.85rem',
+                      color: item.points >= 16 ? 'success.main' : item.points >= 8 ? 'warning.main' : 'error.main',
+                    }}>
+                      {item.points}/20
+                    </Box>
                   </Box>
-                  <Typography variant="body2" sx={{ flex: 1 }}>
-                    {item.text}
-                  </Typography>
-                  <Box sx={{
-                    flexShrink: 0, minWidth: 36, textAlign: 'right',
-                    fontWeight: 700, fontSize: '0.85rem',
-                    color: item.points >= 16 ? 'success.main' : item.points >= 8 ? 'warning.main' : 'error.main',
-                  }}>
-                    {item.points}/20
-                  </Box>
-                </Box>
-              </CardContent>
-            </Card>
-          ))}
-        </Stack>
+                </CardContent>
+              </Card>
+            ))}
+          </Stack>
+        </Box>
+
+        {/* Right: score + actions */}
+        <Box sx={{ width: 200, flexShrink: 0, pt: 1 }}>
+          <Typography variant="h4" fontWeight={700} color="primary.dark">
+            {normalised}/100
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            points
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            {getComment(normalised)}
+          </Typography>
+          {duration > 0 && (
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              Time: {formatDuration(duration)}
+            </Typography>
+          )}
+          <Button variant="contained" onClick={() => navigate('/rank-abs')} fullWidth>
+            Vote Again
+          </Button>
+        </Box>
       </Box>
 
-      {/* Right: score + actions */}
-      <Box sx={{ width: 200, flexShrink: 0, pt: 1 }}>
-        <Typography variant="h4" fontWeight={700} color="primary.dark">
-          {normalised}/100
+      {/* Submission form link */}
+      <Box sx={{ mt: 4, textAlign: 'center' }}>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+          Have a question, feedback or would like to add a scenario?
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-          points
-        </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-          {getComment(normalised)}
-        </Typography>
-        {duration > 0 && (
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Time: {formatDuration(duration)}
-          </Typography>
-        )}
-        <Button variant="contained" onClick={() => navigate('/rank-abs')} fullWidth>
-          Vote Again
-        </Button>
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSd_Y1cgSh-r-MUabMYbjUkTG2Dy0O2-7HnVvZ5R4j2BLGNQ1w/viewform?usp=header"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: '#5c6bc0', textDecoration: 'underline', fontWeight: 500 }}
+        >
+          Use this form
+        </a>
       </Box>
-    </Box>
+    </>
   )
 }
 
