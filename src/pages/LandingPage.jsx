@@ -108,10 +108,10 @@ function LandingPage() {
 
       <Card sx={{ width: "100%", maxWidth: 600, background: 'transparent', boxShadow: 0 }}>
         <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
-          <Typography variant="h2" component="h2" gutterBottom>
+          <Typography variant="h2" component="h2" gutterBottom sx={{ color: 'white' }}>
             About This App
           </Typography>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="body1" sx={{ color: 'white' }}>
             This application was primarily vibe-coded using{" "}
             <Link href="https://kilo.ai/cli" target="_blank" rel="noopener">
               Kilocode
@@ -120,7 +120,14 @@ function LandingPage() {
             <Link href="https://minimax.io/" target="_blank" rel="noopener">
               MiniMax model
             </Link>{" "}
-            (MiniMax-M2.5)
+            (MiniMax-M2.5), as well as{" "}
+            <Link href="https://claude.ai/code" target="_blank" rel="noopener">
+              Claude Code
+            </Link>{" "}
+            and{" "}
+            <Link href="https://chatgpt.com/" target="_blank" rel="noopener">
+              ChatGPT
+            </Link>
           </Typography>
           <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
             <Link
@@ -160,16 +167,23 @@ function LandingPage() {
         </CardContent>
       </Card>
 
-      <Card sx={{ width: "100%", maxWidth: 600 }}>
+      <Card sx={{ width: "100%", maxWidth: 600, background: 'transparent', boxShadow: 0 }}>
         <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
-          <Typography variant="h2" component="h2" gutterBottom>
+          <Typography variant="h2" component="h2" gutterBottom sx={{ color: 'white' }}>
             Authors
           </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Morgan Fouesneau & Ivelina G. Momcheva
+          <Typography variant="body1" sx={{ color: 'white' }}>
+            Morgan Fouesneau, Ivelina G. Momcheva, Clara Salditt & Sarah Burke-Spolaor
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{ color: 'white' }}>
             Department of Data Science - Max Planck Institute for Astronomy
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'white', mt: 2 }}>
+            We thank the organizers of the{" "}
+            <Link href="https://www.stsci.edu/contents/events/stsci/2026/march/language-ai-in-the-space-sciences" target="_blank" rel="noopener">
+              Language AI in the Space Sciences Workshop
+            </Link>{" "}
+            at STScI (March 9–12, 2026) for their participation and support in developing this game.
           </Typography>
         </CardContent>
       </Card>
