@@ -1,8 +1,6 @@
 import { useState, useRef } from 'react'
-import { Box, Typography } from '@mui/material'
+import { Box, Typography, useMediaQuery, useTheme } from '@mui/material'
 import AffirmationCard from './AffirmationCard'
-
-const LEFT_PANEL_VW = 20  // % of viewport used by left white panel
 
 const ZONES = [
   { label: '🟢🟢🟢', color: '#43a047' },
@@ -21,6 +19,11 @@ const getZoneEmoji = (score) => {
 }
 
 function RankingList({ affirmations, cardScores, onScoreChange, onAllRated, surfacePct = 0, children }) {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const LEFT_PANEL_VW = isMobile ? 42 : 20
+  const CARD_LEFT_OFFSET = isMobile ? 52 : 80
+
   const [currentIndex, setCurrentIndex] = useState(0)
   const [dragPos, setDragPos] = useState(null)
   const [hoverScore, setHoverScore] = useState(null)
@@ -116,8 +119,8 @@ function RankingList({ affirmations, cardScores, onScoreChange, onAllRated, surf
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        p: 3,
-        gap: 2,
+        p: { xs: 1.5, sm: 3 },
+        gap: { xs: 1, sm: 2 },
         zIndex: 10,
         boxShadow: '4px 0 24px rgba(0,0,0,0.12)',
       }}>
@@ -226,10 +229,10 @@ function RankingList({ affirmations, cardScores, onScoreChange, onAllRated, surf
               onClick={(e) => e.stopPropagation()}
               sx={{
                 position: 'absolute',
-                left: 80,
+                left: CARD_LEFT_OFFSET,
                 top: `${score}%`,
                 transform: 'translateY(-50%)',
-                width: `${100 - LEFT_PANEL_VW - 12}vw`,
+                width: `calc(${100 - LEFT_PANEL_VW}vw - ${CARD_LEFT_OFFSET + 8}px)`,
                 zIndex: 3,
                 cursor: 'grab',
                 touchAction: 'none',
@@ -253,7 +256,7 @@ function RankingList({ affirmations, cardScores, onScoreChange, onAllRated, surf
           position: 'fixed',
           left: dragPos.x, top: dragPos.y,
           transform: 'translate(-50%, -50%)',
-          width: '28vw',
+          width: isMobile ? '45vw' : '28vw',
           pointerEvents: 'none',
           opacity: 0.92,
           zIndex: 9999,

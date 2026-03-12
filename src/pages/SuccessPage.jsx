@@ -18,7 +18,7 @@ function SuccessPage() {
 
   return (
     <>
-      <Box sx={{ display: 'flex', gap: 4, alignItems: 'flex-start' }}>
+      <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: { xs: 2, sm: 4 }, alignItems: 'flex-start' }}>
         {/* Left: ranked cards */}
         <Box sx={{ flex: 1 }}>
           <Typography variant="h6" gutterBottom color="primary.dark">
@@ -50,7 +50,7 @@ function SuccessPage() {
         </Box>
 
         {/* Right: thank you + actions */}
-        <Box sx={{ width: 200, flexShrink: 0, pt: 1 }}>
+        <Box sx={{ width: { xs: '100%', sm: 200 }, flexShrink: 0, pt: { xs: 0, sm: 1 } }}>
           <Typography variant="h6" fontWeight={700} color="primary.dark" sx={{ mb: 2 }}>
             Thank you for participating!
           </Typography>

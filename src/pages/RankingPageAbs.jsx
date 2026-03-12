@@ -5,6 +5,7 @@ import RankingList from '../components/RankingList'
 import { useAffirmations } from '../hooks/useAffirmations'
 import { submitRankingResults } from '../services/resultsService'
 
+import { useMediaQuery, useTheme } from '@mui/material'
 import boat1 from '../assets/boat-sailboat-sailing-svgrepo-com.svg'
 import boat2 from '../assets/boat-toy-boat-svgrepo-com.svg'
 import cloud from '../assets/cloud-svgrepo-com.svg'
@@ -30,6 +31,9 @@ function rand(min, max) { return min + Math.random() * (max - min) }
 
 function RankingPage() {
   const navigate = useNavigate()
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const creatureSize = isMobile ? 130 : 220
   const { affirmations } = useAffirmations(SURVEY_ID, 5)
   const [allRated, setAllRated] = useState(false)
   const [cardScores, setCardScores] = useState(() =>
@@ -144,7 +148,7 @@ function RankingPage() {
         <img src={shark} alt="" style={{
           position: 'absolute',
           right: '1%', bottom: 0,
-          width: 220, opacity: 0.9,
+          width: creatureSize, opacity: 0.9,
           transform: 'translateY(40%)',
           pointerEvents: 'none',
         }} />
@@ -153,7 +157,7 @@ function RankingPage() {
         <img src={anglerFish} alt="" style={{
           position: 'absolute',
           left: '30%', bottom: 0,
-          width: 220, opacity: 0.9,
+          width: creatureSize, opacity: 0.9,
           transform: 'translateY(25%)',
           pointerEvents: 'none',
         }} />
