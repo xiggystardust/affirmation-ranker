@@ -61,15 +61,15 @@ function LandingPage() {
               How It Works
             </Typography>
             <Typography variant="body1" paragraph sx={{ color: 'white' }}>
-              Welcome to the LLM Ethical Gradient Game! In this activity you will evaluate
-              scenarios involving the use of large language models in academic research.
-              Your task is to judge how ethically concerning each situation is.
+		Welcome to the LLM Ethical Gradient Game! In this activity you will evaluate
+		scenarios involving the use of large language models in academic research.
+		Your task is to judge how ethically concerning each situation is. Your input
+		is anonymous, and we will only look at bulk histograms of the results from everyone.
             </Typography>
             <Typography variant="body1" paragraph sx={{ color: 'white' }}>
               You will receive a small set of scenario cards. Drag and drop them to place
-              each one on the scale from "All Good" to "Sirens Blaring". After you submit
-              your ranking, your answers will be compared to a reference score to see how
-              closely your ethical radar aligns.
+		each one on the scale from "All Good" to "Sirens Blaring". Rank each card
+		generally, as we will bin them coarsely.
             </Typography>
           </CardContent>
         </Card>
@@ -112,7 +112,7 @@ function LandingPage() {
             About This App
           </Typography>
           <Typography variant="body1" sx={{ color: 'white' }}>
-            This application was primarily vibe-coded using{" "}
+            This application was originally primarily vibe-coded using{" "}
             <Link href="https://kilo.ai/cli" target="_blank" rel="noopener">
               Kilocode
             </Link>{" "}
@@ -127,7 +127,7 @@ function LandingPage() {
             and{" "}
             <Link href="https://chatgpt.com/" target="_blank" rel="noopener">
               ChatGPT
-            </Link>
+            </Link>. It was subsequently adapted by hand for use in the NANOGrav collaboration spring 2026 meeting by S. Burke-Spolaor.
           </Typography>
           <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
             <Link
