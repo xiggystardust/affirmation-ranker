@@ -62,11 +62,14 @@ function LandingPage() {
             </Typography>
             <Typography variant="body1" paragraph sx={{ color: 'white' }}>
 		Welcome to the LLM Ethical Gradient Game! In this activity you will evaluate
-		scenarios involving the use of large language models in academic research.
+		scenarios involving the use of large language models as it pertains to our collaboration.
 		Your task is to judge how ethically concerning each situation is. Your input
-		is anonymous, and we will only look at bulk histograms of the results from everyone.
+		is anonymous, and we will only look at bulk histograms of the results from everyone to initiate collaboration-wide discussions.
             </Typography>
-            <Typography variant="body1" paragraph sx={{ color: 'white' }}>
+	      <Typography>
+		  The carts represent HYPOTHETICAL scenarios, not necessarily current truths.
+	      </Typography>
+	      <Typography variant="body1" paragraph sx={{ color: 'white' }}>
               You will receive a small set of scenario cards. Drag and drop them to place
 		each one on the scale from "All Good" to "Sirens Blaring". Rank each card
 		generally, as we will bin them coarsely.
