@@ -66,7 +66,7 @@ function LandingPage() {
 		Your task is to judge how ethically concerning each situation is. Your input
 		is anonymous, and we will only look at bulk histograms of the results from everyone to initiate collaboration-wide discussions.
             </Typography>
-	      <Typography>
+	      <Typography variant="body1" paragraph sx={{ color: 'white' }}>
 		  The carts represent HYPOTHETICAL scenarios, not necessarily current truths.
 	      </Typography>
 	      <Typography variant="body1" paragraph sx={{ color: 'white' }}>
