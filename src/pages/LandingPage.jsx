@@ -176,10 +176,7 @@ function LandingPage() {
             Authors
           </Typography>
           <Typography variant="body1" sx={{ color: 'white' }}>
-            Morgan Fouesneau, Ivelina G. Momcheva, Clara Salditt & Sarah Burke-Spolaor
-          </Typography>
-          <Typography variant="body2" sx={{ color: 'white' }}>
-            Department of Data Science - Max Planck Institute for Astronomy
+              Morgan Fouesneau (MPIfA), Ivelina G. Momcheva (MPIfA), Clara Salditt (Ludwig-Maximilian-Universität Munich) & Sarah Burke-Spolaor (WVU/JHU)
           </Typography>
           <Typography variant="body2" sx={{ color: 'white', mt: 2 }}>
             We thank the organizers of the{" "}
