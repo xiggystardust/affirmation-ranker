@@ -54,9 +54,11 @@ The site is deployed on Netlify. Push to main branch to deploy automatically.
 
 ### Ranking Scale
 
-- **1** = Most acceptable (green)
-- **2** = Neutral / Gray zone (gray)
-- **3** = Least acceptable (red)
+Range: 0 to 100
+
+0 = "Seems totally fine"
+
+>80 = "Alarm bells ringing / completely unacceptable"
 
 ## Admin Access
 
@@ -72,6 +74,10 @@ The admin page is at `/admin` and allows:
 
 Max Planck Institute for Astronomy
 Department of Data Science
+
+- Sarah Burke-Spolaor
+West Virginia University;
+Johns Hopkins University
 
 ## Acknowledgments
 
