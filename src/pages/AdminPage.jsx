@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect, useState, useMemo } from "react"
+import { useNavigate } from "react-router-dom"
 import {
   Box,
   Card,
@@ -10,40 +10,238 @@ import {
   FormControl,
   InputLabel,
   Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
   CircularProgress,
   Grid
-} from '@mui/material'
-import { Refresh as RefreshIcon, Download as DownloadIcon, ArrowBack as ArrowBackIcon } from '@mui/icons-material'
-import { getSurveys } from '../services/surveyService'
-import { getResultsFromFirestore, getSurveyStats } from '../services/adminService'
+} from "@mui/material"
+import { ArrowBack as ArrowBackIcon, Download as DownloadIcon } from "@mui/icons-material"
+//import { getSurveys } from "../services/surveyService"
+import { getResultsFromFirestore, getSurveyStats } from "../services/adminService"
+import { getAllAffirmations } from "../services/surveyService"
+
+const SURVEY_ID = "spring2026"
+
+// Color scheme for histogram bins
+// Sarah removed this (I think it's redundant)
+//const BIN_COLORS = {
+//  0: "#28a745",   // green: 0-20
+//  20: "#ffc107",  // yellow: 20-40
+//  40: "#fd7e14",  // orange: 40-60
+//  60: "#dc3545",  // red: 60-80
+//  80: "#8b0000",  // dark red: 80-100
+//}
+
+// Ordered bin definitions
+const BINS = [
+  { min: 0, max: 20, key: 0, color: "#28a745", label: "0-20" },
+  { min: 20, max: 40, key: 20, color: "#ffc107", label: "20-40" },
+  { min: 40, max: 60, key: 40, color: "#fd7e14", label: "40-60" },
+  { min: 60, max: 80, key: 60, color: "#dc3545", label: "60-80" },
+  { min: 80, max: 100, key: 80, color: "#8b0000", label: "80-100" },
+]
+
+// Helper to safely parse score
+const parseScore = (score) => {
+  const num = Number(score)
+  return Number.isFinite(num) ? Math.min(Math.max(num, 0), 100) : null
+}
+
+// Histogram Component for each card
+const ScoreHistogram = ({ cardId, text, referenceScore, scores, stats }) => {
+  const { mean, stdev, count } = stats
+
+  // Create bins from scores
+  const bins = useMemo(() => {
+    const binCounts = BINS.map((bin) => ({ ...bin, count: 0 }))
+
+    scores.forEach((score) => {
+      const parsedScore = parseScore(score)
+      if (parsedScore === null) return
+
+      const binIndex = BINS.findIndex((b) => parsedScore >= b.min && parsedScore < b.max)
+      const idx = binIndex === -1 && parsedScore === 100 ? BINS.length - 1 : binIndex
+      if (idx >= 0) binCounts[idx].count++
+    })
+
+    return binCounts
+  }, [scores])
+
+  const maxBinCount = Math.max(...bins.map((b) => b.count), 1)
+
+  return (
+    <Card sx={{ mb: 3 }}>
+      <CardContent>
+        {/* Histogram */}
+        <Box sx={{ position: "relative", height: "120px", mb: 4 }}>
+          {/* Bars */}
+          <Box sx={{ display: "flex", height: "100px", alignItems: "flex-end", gap: "2px" }}>
+            {bins.map((bin) => {
+              const height = maxBinCount > 0 ? (bin.count / maxBinCount) * 100 : 0
+              return (
+                <Box
+                  key={bin.key}
+                  sx={{
+                    flex: 1,
+                    height: `${height}%`,
+                    backgroundColor: bin.color,
+                    minHeight: bin.count > 0 ? "4px" : "0px",
+                    transition: "height 0.3s ease",
+                  }}
+                  title={`${bin.label}: ${bin.count} votes`}
+                />
+              )
+            })}
+          </Box>
+
+          {/* X-axis labels */}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              fontSize: "0.7rem",
+              color: "#666",
+              mt: 0.5,
+            }}
+          >
+            {[0, 20, 40, 60, 80, 100].map((val) => (
+              <span key={val}>{val}</span>
+            ))}
+          </Box>
+
+          {/* Reference line for ChatGPT score */}
+          {referenceScore != null && Number.isFinite(referenceScore) && (
+            <Box
+              sx={{
+                position: "absolute",
+                left: `${Math.min(Math.max(referenceScore, 0), 100)}%`,
+                top: 0,
+                height: "100px",
+                borderLeft: "2px dashed black",
+                pointerEvents: "none",
+              }}
+            >
+              <Typography
+                sx={{
+                  position: "absolute",
+                  top: "-18px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  fontSize: "0.65rem",
+                  fontWeight: "bold",
+                  backgroundColor: "white",
+                  padding: "1px 4px",
+                  borderRadius: "3px",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                ChatGPT
+              </Typography>
+            </Box>
+          )}
+
+          {/* Alert line at 80 */}
+          <Box
+            sx={{
+              position: "absolute",
+              left: "80%",
+              top: 0,
+              height: "100px",
+              borderLeft: "2px solid black",
+              pointerEvents: "none",
+            }}
+          >
+            <Typography
+              sx={{
+                position: "absolute",
+                top: "-18px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                fontSize: "0.65rem",
+                fontWeight: "bold",
+                backgroundColor: "white",
+                padding: "1px 4px",
+                borderRadius: "3px",
+                color: "#8b0000",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Alert!
+            </Typography>
+          </Box>
+        </Box>
+
+        {/* Card Text */}
+        <Box
+          sx={{
+            fontSize: "1.1rem",
+            fontWeight: 500,
+            mb: 1.5,
+            p: 1.5,
+            backgroundColor: "#f8f9fa",
+            borderRadius: "6px",
+            borderLeft: "4px solid #1976d2",
+          }}
+        >
+            {text}
+        </Box>
+
+        {/* Stats Row */}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-start",
+            gap: 5,
+            fontSize: "0.95rem",
+            color: "#555",
+            fontFamily: "monospace",
+          }}
+        >
+          <span>
+            <strong>Votes:</strong> {count}
+          </span>
+          <span>
+            <strong>Mean:</strong> {count > 0 ? mean.toFixed(1) : "N/A"}
+          </span>
+          <span>
+            <strong>Stdev:</strong> {count > 1 ? stdev.toFixed(1) : "N/A"}
+          </span>
+        </Box>
+      </CardContent>
+    </Card>
+  )
+}
 
 function AdminPage() {
   const navigate = useNavigate()
-  const surveys = getSurveys()
-  const [selectedSurvey, setSelectedSurvey] = useState('')
+//Sarah removed - I think we need affirmations not surveys here  const surveys = getSurveys()
   const [results, setResults] = useState([])
   const [stats, setStats] = useState({ totalVotes: 0, uniqueSessions: 0 })
   const [loading, setLoading] = useState(true)
+  const [sortBy, setSortBy] = useState("mean")
+
+  // Get affirmations from surveyService
+  const affirmations = useMemo(() => getAllAffirmations(), [])
+
+  // Helper to get affirmation by ID
+  const getAffirmationById = (id) => {
+    const numId = parseInt(id)
+    return affirmations.find((a) => a.id === numId) || null
+  }
+  //Sarah // Get the survey data to access card text and reference scores
+  //Sarah const survey = useMemo(() => {
+  //Sarah   return surveys.find((s) => s.id === SURVEY_ID) || null
+  //Sarah }, [surveys])
 
   const fetchData = async () => {
     setLoading(true)
     try {
-      const surveyId = selectedSurvey || null
       const [resultsData, statsData] = await Promise.all([
-        getResultsFromFirestore(surveyId),
-        getSurveyStats(surveyId)
+        getResultsFromFirestore(SURVEY_ID),
+        getSurveyStats(SURVEY_ID),
       ])
       setResults(resultsData)
       setStats(statsData)
     } catch (error) {
-      console.error('Failed to fetch data:', error)
+      console.error("Failed to fetch data:", error)
     } finally {
       setLoading(false)
     }
@@ -51,51 +249,108 @@ function AdminPage() {
 
   useEffect(() => {
     fetchData()
-  }, [selectedSurvey])
+  }, [])
 
-  const formatDate = (timestamp) => {
-    if (!timestamp) return 'N/A'
-    return new Date(timestamp).toLocaleString()
-  }
+  // Process results into per-card statistics
+  const cardStats = useMemo(() => {
+    if (!results || results.length === 0) return []
 
-  const formatScores = (scores) => {
-    if (!scores || !Array.isArray(scores)) return 'N/A'
-    return scores.map(s => `#${s.id}:${s.playerScore}`).join(', ')
-  }
+    // Collect all scores by card ID
+    const scoresByCard = {}
 
-  const formatDuration = (duration) => {
-    if (!duration) return 'N/A'
-    const seconds = Math.round(duration / 1000)
-    return `${seconds}s`
-  }
+    results.forEach((result) => {
+      if (!result.scores || !Array.isArray(result.scores)) return
 
-  const exportCSV = (results) => {
+      result.scores.forEach((scoreEntry) => {
+        const cardId = scoreEntry.id
+        const score = parseScore(scoreEntry.playerScore)
+
+        if (cardId == null || score === null) return
+
+        if (!scoresByCard[cardId]) {
+          scoresByCard[cardId] = []
+        }
+        scoresByCard[cardId].push(score)
+      })
+    })
+
+    // Calculate stats for each card
+    return Object.entries(scoresByCard).map(([cardId, scores]) => {
+      const count = scores.length
+      let mean = 0
+      let stdev = 0
+
+      if (count > 0) {
+        mean = scores.reduce((sum, s) => sum + s, 0) / count
+
+        if (count > 1) {
+          const variance =
+            scores.reduce((sum, s) => sum + Math.pow(s - mean, 2), 0) / (count - 1)
+          stdev = Math.sqrt(variance)
+        }
+      }
+
+      // Get card text and reference score from survey data
+      const affirmation = getAffirmationById(cardId)
+      //const cardData = survey?.affirmations?.find((a) => a.id === parseInt(cardId)) || {}
+
+      return {
+        cardId: parseInt(cardId),
+        text: affirmation?.text || `Unknown affirmation #${cardId}`,
+        referenceScore: affirmation?.score ?? null,
+	  //SARAH IM NOT SURE ABOUT THE ABOVE LINE - WANT ACTUAL SCORE NOT REFERENCE SCORE!
+        //text: cardData.text || `Card #${cardId}`,
+        //referenceScore: cardData.score || null, // Assuming 'score' is the reference score in affirmations
+        scores,
+        stats: { mean, stdev, count },
+      }
+    })
+  }, [results, affirmations])
+
+  // Sort cards based on selected criteria
+  const sortedCardStats = useMemo(() => {
+    const sorted = [...cardStats]
+
+    if (sortBy === "mean") {
+      sorted.sort((a, b) => b.stats.mean - a.stats.mean)
+    } else if (sortBy === "stdev") {
+      sorted.sort((a, b) => b.stats.stdev - a.stats.stdev)
+    } else if (sortBy === "id") {
+      sorted.sort((a, b) => a.cardId - b.cardId)
+    }
+
+    return sorted
+  }, [cardStats, sortBy])
+
+  // Export CSV function
+  const exportCSV = () => {
     if (!results || results.length === 0) return
 
-    // Collect all card ids seen across all results for column headers
-    const allIds = [...new Set(results.flatMap(r => (r.scores || []).map(s => s.id)))].sort((a, b) => a - b)
-    const headers = ['timestamp', 'surveyId', 'sessionId', 'duration_s', ...allIds.map(id => `card_${id}`)]
-    const rows = results.map(result => {
-      const scoreMap = Object.fromEntries((result.scores || []).map(s => [s.id, s.playerScore]))
+    const allIds = [...new Set(results.flatMap((r) => (r.scores || []).map((s) => s.id)))].sort(
+      (a, b) => a - b
+    )
+    const headers = ["timestamp", "surveyId", "sessionId", "duration_s", ...allIds.map((id) => `card_${id}`)]
+    const rows = results.map((result) => {
+      const scoreMap = Object.fromEntries((result.scores || []).map((s) => [s.id, s.playerScore]))
       return [
-        result.timestamp || '',
-        result.surveyId || 'Default',
-        result.sessionId || '',
-        result.duration ? Math.round(result.duration / 1000) : '',
-        ...allIds.map(id => scoreMap[id] ?? '')
+        result.timestamp || "",
+        result.surveyId || "Default",
+        result.sessionId || "",
+        result.duration ? Math.round(result.duration / 1000) : "",
+        ...allIds.map((id) => scoreMap[id] ?? ""),
       ]
     })
-    
+
     const csvContent = [
-      headers.join(','),
-      ...rows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(','))
-    ].join('\n')
-    
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+      headers.join(","),
+      ...rows.map((row) => row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(",")),
+    ].join("\n")
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" })
     const url = URL.createObjectURL(blob)
-    const link = document.createElement('a')
+    const link = document.createElement("a")
     link.href = url
-    link.download = 'nanorank-results.csv'
+    link.download = `nanorank-results-${SURVEY_ID}.csv`
     link.click()
     URL.revokeObjectURL(url)
   }
@@ -106,6 +361,7 @@ function AdminPage() {
         Results Dashboard
       </Typography>
 
+      {/* Stats Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} sm={6}>
           <Card>
@@ -133,38 +389,26 @@ function AdminPage() {
         </Grid>
       </Grid>
 
+      {/* Display By Selector */}
       <Card sx={{ mb: 3 }}>
         <CardContent>
-          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
-            <FormControl sx={{ minWidth: 200 }}>
-              <InputLabel>Select Survey</InputLabel>
+          <Box sx={{ display: "flex", gap: 2, alignItems: "center", flexWrap: "wrap" }}>
+            <FormControl sx={{ minWidth: 250 }}>
+              <InputLabel>Display by...</InputLabel>
               <Select
-                value={selectedSurvey}
-                label="Select Survey"
-                onChange={(e) => setSelectedSurvey(e.target.value)}
+                value={sortBy}
+                label="Display by..."
+                onChange={(e) => setSortBy(e.target.value)}
               >
-                <MenuItem value="">
-                  <em>All Surveys</em>
-                </MenuItem>
-                {surveys.map((survey) => (
-                  <MenuItem key={survey.id} value={survey.id}>
-                    {survey.name}
-                  </MenuItem>
-                ))}
+                <MenuItem value="mean">Mean Score (Highest First)</MenuItem>
+                <MenuItem value="stdev">Standard Deviation (Highest First)</MenuItem>
+                <MenuItem value="id">Card ID (Ascending)</MenuItem>
               </Select>
             </FormControl>
             <Button
-              variant="contained"
-              startIcon={<RefreshIcon />}
-              onClick={fetchData}
-              disabled={loading}
-            >
-              Refresh
-            </Button>
-            <Button
               variant="outlined"
               startIcon={<DownloadIcon />}
-              onClick={() => exportCSV(results)}
+              onClick={exportCSV}
               disabled={loading || results.length === 0}
             >
               Export CSV
@@ -173,52 +417,62 @@ function AdminPage() {
         </CardContent>
       </Card>
 
-      <Card>
+      {/* Histograms */}
+      <Typography variant="h6" gutterBottom>
+        Card Results ({sortedCardStats.length} cards)
+      </Typography>
+
+      {loading ? (
+        <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+          <CircularProgress />
+        </Box>
+      ) : sortedCardStats.length === 0 ? (
+        <Typography color="textSecondary" sx={{ py: 4, textAlign: "center" }}>
+          No results found for this survey.
+        </Typography>
+      ) : (
+        sortedCardStats.map(({ cardId, text, referenceScore, scores, stats }) => (
+          <ScoreHistogram
+            key={cardId}
+            cardId={cardId}
+            text={text}
+            referenceScore={referenceScore}
+            scores={scores}
+            stats={stats}
+          />
+        ))
+      )}
+
+      {/* Legend */}
+      <Card sx={{ mt: 4 }}>
         <CardContent>
-          <Typography variant="h6" gutterBottom>
-            Recent Results
+          <Typography variant="subtitle1" gutterBottom>
+            Score Legend
           </Typography>
-          
-          {loading ? (
-            <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
-              <CircularProgress />
-            </Box>
-          ) : results.length === 0 ? (
-            <Typography color="textSecondary" sx={{ py: 4, textAlign: 'center' }}>
-              No results found
-            </Typography>
-          ) : (
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Timestamp</TableCell>
-                    <TableCell>Survey</TableCell>
-                    <TableCell>Scores (id:playerScore)</TableCell>
-                    <TableCell>Duration</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {results.slice(0, 50).map((result) => (
-                    <TableRow key={result.id || result.sessionId}>
-                      <TableCell>{formatDate(result.timestamp)}</TableCell>
-                      <TableCell>{result.surveyId || 'Default'}</TableCell>
-                      <TableCell>{formatScores(result.scores)}</TableCell>
-                      <TableCell>{formatDuration(result.duration)}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          )}
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
+            {BINS.map((bin) => (
+              <Box key={bin.key} sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <Box
+                  sx={{
+                    width: "20px",
+                    height: "20px",
+                    backgroundColor: bin.color,
+                    borderRadius: "3px",
+                  }}
+                />
+                <Typography variant="body2">{bin.label}</Typography>
+              </Box>
+            ))}
+          </Box>
         </CardContent>
       </Card>
 
-      <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+      {/* Back Button */}
+      <Box sx={{ mt: 4, display: "flex", justifyContent: "center" }}>
         <Button
           variant="outlined"
           startIcon={<ArrowBackIcon />}
-          onClick={() => navigate('/')}
+          onClick={() => navigate("/")}
         >
           Back to Landing Page
         </Button>

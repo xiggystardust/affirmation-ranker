@@ -6,7 +6,7 @@ import RankingList from '../components/RankingList'
 import { useAffirmations } from '../hooks/useAffirmations'
 import { submitRankingResults } from '../services/resultsService'
 
-const SURVEY_ID = 'my-test'
+const SURVEY_ID = 'spring2026'
 
 function RankingPage() {
   const navigate = useNavigate()

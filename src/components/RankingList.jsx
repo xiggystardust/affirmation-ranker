@@ -30,7 +30,7 @@ function RankingList({ affirmations, cardScores, onScoreChange, onAllRated, surf
   const [hoverScore, setHoverScore] = useState(null)
   const scaleRef = useRef(null)
 
-  const cards = affirmations.slice(0, 5)
+  const cards = affirmations.slice(0, 10)
   const total = cards.length
   const isDone = currentIndex >= total
   const remaining = total - currentIndex

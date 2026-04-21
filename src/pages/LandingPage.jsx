@@ -11,6 +11,7 @@ import {
   Divider,
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import qrCode from '../assets/qrCode.png'
 
 function LandingPage() {
     // Set body background to transparent so ocean background shows through
@@ -55,7 +56,10 @@ function LandingPage() {
         The Ethical Gradient
       </Typography>
 
-        <Card sx={{ width: "100%", maxWidth: 600, background: 'transparent', boxShadow: 0 }}>
+<Box sx={{ height: 0 }} />
+	  <img src={qrCode} alt="QR Code" style={{ width: 270, height: 300 }} />
+	  
+          <Card sx={{ width: "100%", maxWidth: 600, background: 'transparent', boxShadow: 0 }}>
           <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
             <Typography variant="h2" component="h2" gutterBottom sx={{ color: 'white' }}>
               How It Works
@@ -76,6 +80,8 @@ function LandingPage() {
             </Typography>
           </CardContent>
         </Card>
+
+	  
 
         <Card sx={{ width: "100%", maxWidth: 600, background: 'transparent', boxShadow: 0 }}>
           <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
@@ -130,7 +136,7 @@ function LandingPage() {
             and{" "}
             <Link href="https://chatgpt.com/" target="_blank" rel="noopener">
               ChatGPT
-            </Link>. It was subsequently adapted by hand for use in the NANOGrav collaboration spring 2026 meeting by S. Burke-Spolaor.
+            </Link>. It was subsequently adapted by hand for use in the NANOGrav collaboration Spring 2026 meeting by S. Burke-Spolaor. SBS developed the results summary page using Claude as an AI coding assistant, via the interface provided by Johns Hopkins University's "HopGPT" service.
           </Typography>
           <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
             <Link
