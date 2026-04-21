@@ -5,7 +5,7 @@ A mobile-friendly web application for ranking affirmations from least to most ac
 ## Features
 
 - **Mobile-friendly** Material Design UI
-- **Drag-and-drop** sorting of 3 random affirmations
+- **Drag-and-drop** sorting of 5 random affirmations
 - **Anonymous** result collection (stored in Firebase Firestore)
 - **Multiple surveys** support
 - **Admin dashboard** to view and export results as CSV
