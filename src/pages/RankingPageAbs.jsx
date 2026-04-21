@@ -21,7 +21,7 @@ import shark from '../assets/shark-svgrepo-com.svg'
 import anglerFish from '../assets/angler-fish-svgrepo-com (1).svg'
 import squid from '../assets/squid-svgrepo-com.svg'
 
-const SURVEY_ID = 'march-2026'
+const SURVEY_ID = 'my-test'
 const SURFACE_PCT = 14  // % from top where sky meets ocean
 
 const CREATURE_ASSETS = [fish0, fish1, fish2, fish3, fish4, fish5, fishSchool, octopus, squid]
