@@ -4,7 +4,7 @@
     {"id": 3, "score": 15, "text": "A researcher asks an LLM to shorten a 500-word abstract to 250 words while maintaining all technical results, then reviews it for accuracy."},
     {"id": 4, "score": 10, "text": "A researcher asks an LLM to convert legacy NANOGrav Fortran software to Python."},
     {"id": 5, "score": 5, "text": "A junior member asks an LLM to explain the derivation of a standard formula in a NANOGrav paper that they don’t understand."},
-    {"id": 6, "score": 40, "text": "A NANOGrav mentor uses an LLM to automatically generate comments for all first-draft papers sent by students, to avoid spending time making obvious suggestions."},
+    {"id": 6, "score": 40, "text": "A NANOGrav mentor sends LLM comments only on first-draft student papers, to avoid spending time 'making the usual obvious suggestions.'"},
     {"id": 7, "score": 35, "text": "A student asks an LLM to summarize the 'state of the field' to help them develop their introduction, rather than conducting a manual literature search."},
     {"id": 8, "score": 5, "text": "A NANOGrav PI uses a privately hosted LLM to draft a recommendation letter for a student, using the student’s CV and their own notes as input."},
     {"id": 9, "score": 10, "text": "A professor asks an LLM to neutralize gender-biased language in a recommendation letter."},
