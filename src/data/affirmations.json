@@ -1,4 +1,4 @@
-{ affirmations: [
+{ "affirmations": [
     {"id": 1, "score": 5, "text": "A researcher uses a university-hosted (private) LLM to improve the grammar of a paper draft."},
     {"id": 2, "score": 10, "text": "A researcher asks a public LLM to generate a Python script for data visualization."},
     {"id": 3, "score": 15, "text": "A researcher asks an LLM to shorten a 500-word abstract to 250 words while maintaining all technical results, then reviews it for accuracy."},
