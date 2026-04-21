@@ -21,7 +21,7 @@ import shark from '../assets/shark-svgrepo-com.svg'
 import anglerFish from '../assets/angler-fish-svgrepo-com (1).svg'
 import squid from '../assets/squid-svgrepo-com.svg'
 
-const SURVEY_ID = 'my-test'
+const SURVEY_ID = 'spring2026'
 const SURFACE_PCT = 14  // % from top where sky meets ocean
 
 const CREATURE_ASSETS = [fish0, fish1, fish2, fish3, fish4, fish5, fishSchool, octopus, squid]
@@ -34,7 +34,7 @@ function RankingPage() {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const creatureSize = isMobile ? 130 : 220
-  const { affirmations } = useAffirmations(SURVEY_ID, 5)
+  const { affirmations } = useAffirmations(SURVEY_ID, 10)
   const [allRated, setAllRated] = useState(false)
   const [cardScores, setCardScores] = useState(() =>
     affirmations.reduce((acc, card) => { acc[card.id] = 50; return acc }, {})
