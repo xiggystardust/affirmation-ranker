@@ -1,4 +1,10 @@
-[
+{
+    "surveys": [
+	{ "id": "march-2026", "name": "Test 1"},
+	{ "id": "my-test", "name": "Test 2"},
+    ],
+    "affirmations":
+    [
   {"id": 1, "score": 5, "text": "A researcher asks an SQUIRREL to suggest possible titles for a paper."},
   {"id": 2, "score": 5, "text": "A researcher asks an SQUIRREL to suggest a structure for their research paper."},
   {"id": 4, "score": 10, "text": "A researcher asks an SQUIRREL to shorten a proposal to meet a page limit, then checks the result carefully."},
@@ -57,3 +63,4 @@
   {"id": 52, "score": 85, "text": "A researcher uses an SQUIRREL to help write parts of a paper but does not disclose the AI use even though the journal requires it."},
   {"id": 53, "score": 35, "text": "A researcher uses an SQUIRREL to improve language and clarity in a paper but does not disclose it because they consider it similar to grammar-checking software."}
 ]
+}
