@@ -20,17 +20,21 @@ import { getAllAffirmations } from "../services/surveyService"
 
 const SURVEY_ID = "NANOGravSpring2026"
 
-// Color scheme for histogram bins
-// Sarah removed this (I think it's redundant)
-//const BIN_COLORS = {
-//  0: "#28a745",   // green: 0-20
-//  20: "#ffc107",  // yellow: 20-40
-//  40: "#fd7e14",  // orange: 40-60
-//  60: "#dc3545",  // red: 60-80
-//  80: "#8b0000",  // dark red: 80-100
-//}
-
 // Ordered bin definitions
+/*
+  const BINS = [
+  { min: 0, max: 10, key: 0, color: "#28a745", label: "0-10" },
+  { min: 10, max: 20, key: 0, color: "#8bc225", label: "10-20" },
+  { min: 20, max: 30, key: 20, color: "#c4eb00", label: "20-30" },
+  { min: 30, max: 40, key: 20, color: "#ffea07", label: "30-40" },
+  { min: 40, max: 50, key: 40, color: "#ffc107", label: "40-50" },
+  { min: 50, max: 60, key: 40, color: "#fc990d", label: "50-60" },
+  { min: 60, max: 70, key: 60, color: "#fd7e14", label: "60-70" },
+  { min: 70, max: 80, key: 60, color: "#dc3545", label: "70-80" },
+  { min: 80, max: 90, key: 80, color: "#bf0013", label: "80-90" },
+  { min: 90, max: 100, key: 80, color: "#8b0000", label: "90-100" },
+]*/
+/*COARSER BINS OPTION*/
 const BINS = [
   { min: 0, max: 20, key: 0, color: "#28a745", label: "0-20" },
   { min: 20, max: 40, key: 20, color: "#ffc107", label: "20-40" },
@@ -38,6 +42,7 @@ const BINS = [
   { min: 60, max: 80, key: 60, color: "#dc3545", label: "60-80" },
   { min: 80, max: 100, key: 80, color: "#8b0000", label: "80-100" },
 ]
+
 
 // Helper to safely parse score
 const parseScore = (score) => {
@@ -71,9 +76,9 @@ const ScoreHistogram = ({ cardId, text, referenceScore, scores, stats }) => {
     <Card sx={{ mb: 3 }}>
       <CardContent>
         {/* Histogram */}
-        <Box sx={{ position: "relative", height: "120px", mb: 4 }}>
+        <Box sx={{ position: "relative", height: "170px", mb: 4 }}>
           {/* Bars */}
-          <Box sx={{ display: "flex", height: "100px", alignItems: "flex-end", gap: "2px" }}>
+          <Box sx={{ display: "flex", height: "170px", alignItems: "flex-end", gap: "2px" }}>
             {bins.map((bin) => {
               const height = maxBinCount > 0 ? (bin.count / maxBinCount) * 100 : 0
               return (
@@ -114,7 +119,7 @@ const ScoreHistogram = ({ cardId, text, referenceScore, scores, stats }) => {
                 position: "absolute",
                 left: `${Math.min(Math.max(referenceScore, 0), 100)}%`,
                 top: 0,
-                height: "100px",
+                height: "170px",
                 borderLeft: "2px dashed black",
                 pointerEvents: "none",
               }}
@@ -133,7 +138,7 @@ const ScoreHistogram = ({ cardId, text, referenceScore, scores, stats }) => {
                   whiteSpace: "nowrap",
                 }}
               >
-                ChatGPT
+                Claude
               </Typography>
             </Box>
           )}
@@ -144,7 +149,7 @@ const ScoreHistogram = ({ cardId, text, referenceScore, scores, stats }) => {
               position: "absolute",
               left: "80%",
               top: 0,
-              height: "100px",
+              height: "170px",
               borderLeft: "2px solid black",
               pointerEvents: "none",
             }}
@@ -362,20 +367,17 @@ function AdminPage() {
       </Typography>
 
       {/* Stats Cards */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
+      <Grid container spacing={3} sx={{ mb: 2 }}>
         <Grid item xs={12} sm={6}>
           <Card>
             <CardContent>
               <Typography color="textSecondary" gutterBottom>
-                Total Votes
-              </Typography>
-              <Typography variant="h3" color="primary">
-                {stats.totalVotes}
+                  Total Votes: {stats.totalVotes}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6}>
+	  {/*        <Grid item xs={12} sm={6}>
           <Card>
             <CardContent>
               <Typography color="textSecondary" gutterBottom>
@@ -386,7 +388,8 @@ function AdminPage() {
               </Typography>
             </CardContent>
           </Card>
-        </Grid>
+          </Grid>
+	   */}
       </Grid>
 
       {/* Display By Selector */}
