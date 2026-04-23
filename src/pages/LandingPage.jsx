@@ -11,7 +11,8 @@ import {
   Divider,
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import qrCode from '../assets/qrCode.png'
+/* Optional QR code ...
+   import qrCode from '../assets/qrCode.png'*/
 
 function LandingPage() {
     // Set body background to transparent so ocean background shows through
@@ -56,9 +57,9 @@ function LandingPage() {
         The Ethical Gradient
       </Typography>
 
-<Box sx={{ height: 0 }} />
+	  {/*<Box sx={{ height: 0 }} />
 	  <img src={qrCode} alt="QR Code" style={{ width: 270, height: 300 }} />
-	  
+	   */}
           <Card sx={{ width: "100%", maxWidth: 600, background: 'transparent', boxShadow: 0 }}>
           <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
             <Typography variant="h2" component="h2" gutterBottom sx={{ color: 'white' }}>
@@ -67,14 +68,11 @@ function LandingPage() {
             <Typography variant="body1" paragraph sx={{ color: 'white' }}>
 		Welcome to the LLM Ethical Gradient Game! In this activity you will evaluate
 		scenarios involving the use of large language models as it pertains to our collaboration.
-		Your task is to judge how ethically concerning each situation is. Your input
+		Your task is to judge how concerning each situation is. Your input
 		is anonymous, and we will only look at bulk histograms of the results from everyone to initiate collaboration-wide discussions.
             </Typography>
 	      <Typography variant="body1" paragraph sx={{ color: 'white' }}>
-		  The carts represent HYPOTHETICAL scenarios, not necessarily current truths.
-	      </Typography>
-	      <Typography variant="body1" paragraph sx={{ color: 'white' }}>
-              You will receive a small set of scenario cards. Drag and drop them to place
+              You will receive a set of scenario cards. Drag and drop them to place
 		each one on the scale from "All Good" to "Sirens Blaring". Rank each card
 		generally, as we will bin them coarsely.
             </Typography>
@@ -182,7 +180,7 @@ function LandingPage() {
             Authors
           </Typography>
           <Typography variant="body1" sx={{ color: 'white' }}>
-              Morgan Fouesneau (MPIfA), Ivelina G. Momcheva (MPIfA), Clara Salditt (Ludwig-Maximilian-Universität Munich) & Sarah Burke-Spolaor (WVU/JHU)
+              Morgan Fouesneau (MPIfA), Ivelina G. Momcheva (MPIfA), Sarah Burke-Spolaor (WVU/JHU), & Clara Salditt (Ludwig-Maximilian-Universität Munich)
           </Typography>
           <Typography variant="body2" sx={{ color: 'white', mt: 2 }}>
             We thank the organizers of the{" "}
