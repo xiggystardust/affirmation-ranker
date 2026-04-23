@@ -61,19 +61,19 @@ function SuccessPage() {
       </Box>
 
       {/* Submission form link */}
-      <Box sx={{ mt: 4, textAlign: 'center' }}>
+	{/*      <Box sx={{ mt: 4, textAlign: 'center' }}>
         <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
             Once the group exercise is over you can:
         </Typography>
         <a
-            href="http://www.google.com"
+            href="/admin" underline="hover"
           target="_blank"
           rel="noopener noreferrer"
           style={{ color: '#5c6bc0', textDecoration: 'underline', fontWeight: 500 }}
         >
           view overall results summary so far.
         </a>
-      </Box>
+	</Box>*/}
     </>
   )
 }
