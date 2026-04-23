@@ -126,7 +126,7 @@ function RankingList({ affirmations, cardScores, onScoreChange, onAllRated, surf
         boxShadow: '4px 0 24px rgba(0,0,0,0.12)',
       }}>
         <Typography variant="caption" color="text.secondary">
-          Drag each card into the ocean and drop it at your chosen level, or <strong>click anywhere on the scale</strong> to place it. Reposition placed cards anytime. Scenarios you think should be <strong>banned</strong> go below the red line.
+          Drag each card into the ocean and drop it at your chosen level, or <strong>click anywhere on the scale</strong> to place it. Reposition placed cards anytime. Scenarios you think should possibly be <strong>banned</strong> go below the red line.
         </Typography>
 
         <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
@@ -203,11 +203,11 @@ function RankingList({ affirmations, cardScores, onScoreChange, onAllRated, surf
           pointerEvents: 'none', zIndex: 5,
         }} />
         <Box sx={{
-          position: 'absolute', right: 8, top: '80%',
+          position: 'absolute', right: 0, top: '80%',
           transform: 'translateY(4px)',
           pointerEvents: 'none', zIndex: 5,
         }}>
-          <Typography sx={{ fontSize: '0.65rem', color: '#e53935', fontWeight: 700, lineHeight: 1 }}>BAN ↓</Typography>
+          <Typography sx={{ fontSize: '0.75rem', color: '#e53935', fontWeight: 700, lineHeight: 1 }}>ALERT↓</Typography>
         </Box>
 
         {/* Hover indicator */}
