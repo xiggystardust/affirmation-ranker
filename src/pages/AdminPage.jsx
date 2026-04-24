@@ -18,9 +18,9 @@ import { ArrowBack as ArrowBackIcon, Download as DownloadIcon } from "@mui/icons
 import { getResultsFromFirestore, getSurveyStats } from "../services/adminService"
 import { getAllAffirmations } from "../services/surveyService"
 
-const SURVEY_ID = "NANOGravSpring2026"
+const SURVEY_ID = "spring2026"
 
-// Ordered bin definitions
+// Ordered bin definitions; uncomment below for thinner bins.
 /*
   const BINS = [
   { min: 0, max: 10, key: 0, color: "#28a745", label: "0-10" },
@@ -372,7 +372,7 @@ function AdminPage() {
           <Card>
             <CardContent>
               <Typography color="textSecondary" gutterBottom>
-                  Total Votes: {stats.totalVotes}
+                  Total Sessions: {stats.totalVotes}
               </Typography>
             </CardContent>
           </Card>
