@@ -34,7 +34,7 @@ function RankingPage() {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const creatureSize = isMobile ? 130 : 220
-  const { affirmations } = useAffirmations(SURVEY_ID, 10)
+  const { affirmations } = useAffirmations(SURVEY_ID, 6)
   const [allRated, setAllRated] = useState(false)
   const [cardScores, setCardScores] = useState(() =>
     affirmations.reduce((acc, card) => { acc[card.id] = 50; return acc }, {})
